@@ -24,7 +24,7 @@ def morpion_game():
     
     def equal():
          if ' ' not in board and winner(symbol) is False and winner(symbol2) is False:
-           print("Match nul!")
+           print("Equality!")
            return True
          return False
 
@@ -33,61 +33,71 @@ def morpion_game():
         global symbol
         global player1
         global name
-        player1=(input(f"Joueur 1, choissiez un symbole X ou O: "))
+
+        player1=(input(f"Player 1, choose X or O: "))
         player1= player1.upper()
+
         while player1 not in ['X','O']:
-            player1=(input(f"Entrée invalide. Joueur 1, choissiez un symbole X ou O: "))
+            player1=(input(f"Inavlid entry. Player 1, choose X or O only: "))
             player1= player1.upper()
+       
         if player1 == "X":
             symbol = "X"
-            name="Joueur 1"
+            name="Player 1"
+       
         else:
             symbol ="O"
-            name="Joueur 1"
-        print(f"{name} vous êtes", symbol)
-   
-    def replay():
-        rewind= input("Voulez-vous rejouer? (o/n): ")
-        if again.lower() == 'o':
-            morpion_game()
-        else:
-            return False
+            name="Player 1"
+       
+        print(f"{name} you are", symbol)
    
     def play():
         symbols()
+       
         global score_1
         global score_2
         global symbol2
+       
         while True:
+        
          try:
-          position= int(input (f"Joueur 1 choisissez une position (1-8): ")) 
+         
+          position= int(input (f"Player 1, choose a position (0-8): "))  
+          
           if position <0 or position >8:
-              print("Entrée invalide. Veuillez entrer un nombre entre 1 et 8")
+              print("invalid entry. Please choose a valid number 0-8")  
               continue
+         
          except ValueError:
-          print("Entrée invalide. Veuillez entrer un nombre entre 1 et 8")
+          print("invalid entry. Please choose a valid number 0-8") 
           continue
+        
          if board[position]!=' ':
-          print("Position déjà prise, choisissez une autre position.")
+          print("Position taken, please choose another position.")
           continue
+        
          else:
             board[position]=symbol
-            if board[position]==symbol:
-               score_1 +=1
             print_board()
+           
             if winner(symbol):
-                print(f"Le joueur {name} a gagné!")
-                print(f"Les scores totaux sont: {name}: {score_1}, {name2}: {score_2}")
-                replay= input("Voulez-vous rejouer? (o/n): ")
-                if replay.lower() == 'o':
+                score_1 += 1  
+                print(f"Player {name} won!")
+                print(f"Total scores are: {name}: {score_1}, {name2}: {score_2}")
+             
+                replay= input("Do you want to play again? (y/n): ")
+                if replay.lower() == 'y':
                  morpion_game()
+               
                 else:
                  break
             
             elif equal()==True:
-             replay= input("Voulez-vous rejouer? (o/n): ")
-             if replay.lower() == 'o':
+            
+             replay= input("Do you want to play again? (y/n): ")
+             if replay.lower() == 'y':
               morpion_game()
+            
              else:
               break
                
@@ -95,39 +105,48 @@ def morpion_game():
         
          if player1 == "X":
             symbol2 = "O"
-            name2="Joueur 2"
+            name2="Player 2"
+         
          else:
             symbol2 ="X"
-            name2="Joueur 2"
+            name2="Player 2"
         
          
          try:
-           position2= int(input (f"Joueur 2 choisissez une position (1-8): "))
+          
+           position2= int(input (f"Player 2, choose a position (0-8): "))  
+          
            if position2 <0 or position2 >8:
-            print("Entrée invalide. Veuillez entrer un nombre entre 1 et 8")
+            print("Invalid entry. Please choose a valid number 0-8")  
+          
             continue
          except ValueError:
-            print("Entrée invalide. Veuillez entrer un nombre entre 1 et 8")
+            print("Invalid entry. Please choose a valid number 0-8")  
             continue
+        
          if board[position2]!= ' ':
-            print("Position déjà prise, choisissez une autre position.")
+            print("Position taken, please choose another position.")
             continue
+        
          else:
             board[position2]=symbol2
-            if board[position2]==symbol2:
-               score_2 +=1
             print_board()
+        
          if winner(symbol2):
-            print(f"Le {name2} a gagné!")
-            print(f"Les scores totaux sont: {name}: {score_1}, {name2}: {score_2}")
-            replay= input("Voulez-vous rejouer? (o/n): ")
-            if replay.lower() == 'o':
+            score_2 += 1  
+            print(f"{name2} won!")
+            print(f"Total scores are: {name}: {score_1}, {name2}: {score_2}")
+           
+            replay= input("Do you want to play again? (y/n): ")
+            if replay.lower() == 'y':
               morpion_game()
+           
             else:
               break
     
          if equal()==True:
-          print(f"Les scores totaux sont: {name}: {score_1}, {name2}: {score_2}")
+          print(f"Total scores are: {name}: {score_1}, {name2}: {score_2}")
+      
         return False
         
     play()
